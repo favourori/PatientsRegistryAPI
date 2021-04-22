@@ -1,0 +1,25 @@
+{
+  "name": "patientsregistryapi",
+  "version": "1.0.0",
+  "description": "“Hack the Rare”, a hackathon to build open source software tools that will catalyze the development of treatments for rare devastating diseases affecting 400 million patients worldwide. This event is organized in collaboration with OpenTreatments Foundation.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/favourori/PatientsRegistryAPI.git"
+  },
+  "author": "Favour & Kareem",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/favourori/PatientsRegistryAPI/issues"
+  },
+  "homepage": "https://github.com/favourori/PatientsRegistryAPI#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.5"
+  }
+}
