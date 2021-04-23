@@ -2,6 +2,7 @@
 /* eslint-disable consistent-return */
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const { emailMessage } = require("../helpers/signupMessage");
 
 const patientSchema = new mongoose.Schema(
   {
@@ -29,6 +30,10 @@ const patientSchema = new mongoose.Schema(
     country: {
       type: String
     },
+    verificationCode: {
+      type: String,
+      required: true
+    },
     resetPasswordToken: {
       type: String,
       required: false
@@ -50,7 +55,7 @@ patientSchema.pre("save", async function (next) {
       return next(error);
     }
     // Send welcome email
-    // sendMail('registration', this.email, { name: this.name })
+    await emailMessage(this.email, this.firstname, this.verificationCode);
   }
   next();
 });

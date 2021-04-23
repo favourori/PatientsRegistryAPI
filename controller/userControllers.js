@@ -1,12 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 const {
-  NotFound,
-  UnprocessableEntity,
   InternalServerError,
-  Conflict,
-  Unauthorized,
-  createError,
-  BadRequest,
   Forbidden
 } = require("http-errors");
 const { accessToken } = require("../helpers/authHelper");
@@ -30,9 +24,13 @@ exports.signup = async (req, res) => {
       throw new Forbidden("User with this email address exist");
     }
 
+    // Generate 4 digits code
+    const verificationCode = (Math.floor(Math.random() * 10000) + 10000).toString().substring(1);
+    // console.log(verificationCode);
+
     // save the data in the database
     const PatientData = await Patients.create({
-      firstname, lastname, email, phone, country, password
+      firstname, lastname, email, phone, country, password, verificationCode
     });
 
     // return error if data did not save
@@ -40,16 +38,13 @@ exports.signup = async (req, res) => {
       throw InternalServerError("Unable to save user's data");
     }
 
-    const token = await accessToken({ email: PatientData.email, id: PatientData._id });
+    // const token = await accessToken({ email: PatientData.email, id: PatientData._id });
 
     // return successfull message and patient data
     return res.status(201).send({
       status: true,
       message: "User registrattion completed",
-      data: {
-        PatientData,
-        token
-      }
+      data: PatientData
     });
   } catch (error) {
     return res.status(error.status || 400).send({
