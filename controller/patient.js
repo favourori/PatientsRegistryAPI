@@ -1,7 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 const {
   InternalServerError,
-  Forbidden
+  Forbidden,
+  NotFound
 } = require("http-errors");
 const { accessToken } = require("../helpers/authHelper");
 const Patients = require("../model/patient");
@@ -38,8 +39,6 @@ exports.signup = async (req, res) => {
       throw InternalServerError("Unable to save user's data");
     }
 
-    // const token = await accessToken({ email: PatientData.email, id: PatientData._id });
-
     // return successfull message and patient data
     return res.status(201).send({
       status: true,
@@ -55,5 +54,31 @@ exports.signup = async (req, res) => {
 };
 
 exports.verifyAccount = async (req, res) => {
+  try {
+    // query the code
+    const { verificationCode } = req.body;
+    // find the code
+    const patient = await Patients.findOne({ verificationCode });
+    if (!patient) {
+      throw new NotFound("This code is invalid");
+    }
+    // create token
+    const token = await accessToken({ email: patient.email, id: patient._id });
 
+    // delete verificationCode for the user
+    await Patients.findOneAndUpdate({ verificationCode }, { $set: { verificationCode: null } });
+
+    return res.status(200).send({
+      status: true,
+      message: "Account Verification successfull",
+      data: {
+        token
+      }
+    });
+  } catch (error) {
+    return res.status(error.status || 400).send({
+      status: false,
+      message: error.message
+    });
+  }
 };

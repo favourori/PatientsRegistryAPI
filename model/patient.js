@@ -32,7 +32,8 @@ const patientSchema = new mongoose.Schema(
     },
     verificationCode: {
       type: String,
-      required: true
+      required: true,
+      unique: true
     },
     resetPasswordToken: {
       type: String,
