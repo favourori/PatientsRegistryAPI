@@ -1,3 +1,5 @@
+/* eslint-disable func-names */
+/* eslint-disable consistent-return */
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
@@ -13,7 +15,8 @@ const patientSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      required: true
+      required: true,
+      unique: true
     },
     password: {
       type: String,
