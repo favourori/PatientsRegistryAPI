@@ -50,7 +50,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/auth", userRoute);
-app.use("/api/v1/", patientRoute);
+app.use("/api/v1/patients", patientRoute);
 
 // Spin up dev server
 const PORT = process.env.PORT || 5000;
