@@ -1,5 +1,6 @@
 express = require('express')
 app = express()
+const mongoose = require("mongoose");
 require('dotenv').config()
 
 
@@ -20,6 +21,22 @@ app.use(function (req, res, next) {
     );
     next();
 });
+
+(async () => {
+    try {
+        const options = {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useFindAndModify: false,
+            useCreateIndex: true,
+            autoIndex: false,
+        };
+        await mongoose.connect(process.env.DB_URL, options);
+        console.log("connected to DB");
+    } catch (err) {
+        console.log(err.toString());
+    }
+})();
 
 
 app.get("/", (req, res)=>{
