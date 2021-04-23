@@ -4,8 +4,8 @@ require('dotenv').config()
 
 
 //setup body parser
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
 
 let cors = require("cors");
 app.use(cors());
