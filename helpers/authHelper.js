@@ -1,4 +1,5 @@
 const JWT = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 const accessToken = (payload) => new Promise((resolve, reject) => {
   const secret = process.env.JWT_KEY;
@@ -32,4 +33,6 @@ const mustBeLoggedIn = (req, res, next) => {
   }
 };
 
-module.exports = { accessToken, mustBeLoggedIn };
+const isPasswordValid = (hashedPass, plainPass) => bcrypt.compareSync(plainPass, hashedPass);
+
+module.exports = { accessToken, mustBeLoggedIn, isPasswordValid };

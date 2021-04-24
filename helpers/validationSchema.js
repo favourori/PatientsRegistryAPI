@@ -17,19 +17,25 @@ const patientSignup = Joi.object().keys({
   phone: Joi.string().trim().label("phone").required()
 });
 
-
 const diseaseCreate = Joi.object().keys({
   name: Joi.string().trim().min(2).label("name")
-  .required(),
+    .required(),
   description: Joi.string().trim().min(2).label("description")
-  .required(),
+    .required(),
   symptoms: Joi.string().trim().min(2).label("symptoms")
-  .required(),
+    .required(),
   causes: Joi.string().trim().min(2).label("causes")
-  .required(),
-})
+    .required()
+});
+
+const patientLogin = Joi.object().keys({
+  email: Joi.string().trim().email({ minDomainSegments: 2 }).label("email")
+    .required(),
+  password: Joi.string().trim().label("password")
+    .required()
+});
 module.exports = {
   patientSignup,
-  diseaseCreate
-
+  diseaseCreate,
+  patientLogin
 };
