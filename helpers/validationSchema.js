@@ -17,7 +17,19 @@ const patientSignup = Joi.object().keys({
   phone: Joi.string().trim().label("phone").required()
 });
 
+
+const diseaseCreate = Joi.object().keys({
+  name: Joi.string().trim().min(2).label("name")
+  .required(),
+  description: Joi.string().trim().min(2).label("description")
+  .required(),
+  symptoms: Joi.string().trim().min(2).label("symptoms")
+  .required(),
+  causes: Joi.string().trim().min(2).label("causes")
+  .required(),
+})
 module.exports = {
-  patientSignup
+  patientSignup,
+  diseaseCreate
 
 };
