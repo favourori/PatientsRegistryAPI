@@ -14,6 +14,10 @@ const patientSchema = new mongoose.Schema(
       type: String,
       required: true
     },
+    dob: {
+        type: String,
+        required: true
+      },
     email: {
       type: String,
       required: true,
@@ -27,6 +31,10 @@ const patientSchema = new mongoose.Schema(
       type: String,
       required: true
     },
+    address: {
+        type: String,
+        required: true
+      },
     country: {
       type: String
     },
