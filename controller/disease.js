@@ -5,7 +5,6 @@ const {
   UnprocessableEntity
 } = require("http-errors");
 const mongoose = require("mongoose");
-const { accessToken } = require("../helpers/authHelper");
 const Disease = require("../model/disease");
 
 exports.createDisease = async (req, res) => {
@@ -94,9 +93,8 @@ exports.getDiseases = async (req, res) => {
       message: error.message
     });
   }
-}
+};
 
+exports.editDisease = async (req, res) => {
 
-  exports.editDisease = async (req, res) => {
-      
-  }
+};
