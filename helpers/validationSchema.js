@@ -46,9 +46,18 @@ const adminSignupValidation = Joi.object().keys({
     .required(),
   role: Joi.string().trim().required()
 });
+
+const adminLoginValidation = Joi.object().keys({
+  email: Joi.string().trim().email({ minDomainSegments: 2 }).label("email")
+    .required(),
+  password: Joi.string().trim().label("password")
+    .required()
+});
+
 module.exports = {
   patientSignup,
   diseaseCreate,
   patientLogin,
-  adminSignupValidation
+  adminSignupValidation,
+  adminLoginValidation
 };
