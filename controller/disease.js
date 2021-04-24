@@ -1,18 +1,14 @@
 /* eslint-disable no-underscore-dangle */
 const {
     InternalServerError,
+    NotFound
   } = require("http-errors");
   const { accessToken } = require("../helpers/authHelper");
   const Disease = require("../model/disease");
   
   exports.createDisease = async (req, res) => {
     try {
-      // get the payload from body
-      const {
-        name, description, synonyms, symptoms, causes
-      } = req.body;
-  
-  
+    
       // save the disease in the database
       const newDisease = await Disease.create(req.body);
   
@@ -36,3 +32,34 @@ const {
   };
   
   
+
+  exports.getDisease = async (req, res) => {
+
+    try {
+        const id = req.params.id;
+        if (!id) {
+            return res.status(400).json({
+                success: false,
+                message: "id is required",
+            });
+        }
+        const disease = await Disease.findOne({
+            _id: id,
+        });
+
+        if (!disease){
+            throw new NotFound("Disease not found");
+        }
+        return res.status(200).json({
+            status: true,
+            message: "Disease retrived",
+            data: disease
+        });
+        
+    }catch(error){
+        return res.status(error.status || 404).send({
+            status: false,
+            message: error.message
+        });
+    }
+  }

@@ -7,8 +7,12 @@ const cors = require("cors");
 
 require("dotenv").config();
 
+//import patients routes
 const patientRoute = require("./route/patient");
 const userRoute = require("./route/users");
+
+//import disease routes
+const diseaseRoute = require("./route/disease");
 
 // setup body parser
 app.use(express.urlencoded({ extended: true }));
@@ -49,8 +53,12 @@ app.get("/", (req, res) => {
   });
 });
 
+//Patients Routes
 app.use("/api/v1/auth", userRoute);
 app.use("/api/v1/patients", patientRoute);
+
+//Disease Routes
+app.use("/api/v1/diseases", diseaseRoute);
 
 // Spin up dev server
 const PORT = process.env.PORT || 8080;
