@@ -5,6 +5,10 @@ const patientSignup = Joi.object().keys({
     .required(),
   lastname: Joi.string().trim().min(2).label("lastname")
     .required(),
+  dob: Joi.string().trim().min(2).label("dob")
+    .required(),
+  address: Joi.string().trim().min(2).label("address")
+    .required(),
   country: Joi.string().trim().label("country").required(),
   email: Joi.string().trim().email({ minDomainSegments: 2 }).label("email")
     .required(),
