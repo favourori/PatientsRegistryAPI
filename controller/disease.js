@@ -63,3 +63,35 @@ const {
         });
     }
   }
+
+  exports.getDiseases = async (req, res) => {
+
+    try {
+        const perPage = Number(req.query.perPage) || 50;
+        const page = Number(req.query.page) || 1;
+
+        //const jobs = await Job.find({ status : { $eq: 'Open'}})
+        const diseases = await Disease.find()
+            .skip((page - 1) * perPage)
+            .limit(perPage)
+            .exec();
+
+        if (!diseases){
+            throw new NotFound("No Disease available");
+        }
+
+        let diseaseCount = diseases.length;
+        return res.status(200).json({
+            success: true,
+            data: {diseases, page, perPage, diseaseCount},
+            message: "Diseases retrived",
+        });
+    
+        
+    }catch(error){
+        return res.status(error.status || 404).send({
+            status: false,
+            message: error.message
+        });
+    }
+  }
