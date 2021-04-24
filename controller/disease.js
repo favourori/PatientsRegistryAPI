@@ -95,3 +95,8 @@ const {
         });
     }
   }
+
+
+  exports.editDisease = async (req, res) => {
+      
+  }
