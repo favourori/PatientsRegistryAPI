@@ -13,6 +13,7 @@ exports.signup = async (req, res) => {
     const {
       firstname,
       lastname,
+      dob,
       email,
       phone,
       country,
@@ -31,7 +32,7 @@ exports.signup = async (req, res) => {
 
     // save the data in the database
     const PatientData = await Patients.create({
-      firstname, lastname, email, phone, country, password, verificationCode
+      firstname, lastname, dob, email, phone, country, password, verificationCode
     });
 
     // return error if data did not save
