@@ -13,22 +13,21 @@ const diseaseSchema = new mongoose.Schema(
       required: true
     },
     synonyms: {
-        type: Array,
-        required: false
+      type: Array,
+      required: false
     },
     symptoms: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     causes: {
-        type: String,
-        required: false
-    },
- 
+      type: String,
+      required: false
+    }
+
   },
   { timestamps: true }
 );
-
 
 const Disease = mongoose.model("Disease", diseaseSchema);
 
