@@ -7,7 +7,7 @@ const { validator } = require("../middlewares/validationMid");
 const router = express.Router();
 
 router.post("/create", mustBeLoggedIn, validator(diseaseCreate), createDisease);
-router.get("/all", getDiseases);
-router.get("/:id", getDisease);
+router.get("/all", mustBeLoggedIn, getDiseases);
+router.get("/:id", mustBeLoggedIn, getDisease);
 
 module.exports = router;
