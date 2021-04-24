@@ -94,4 +94,9 @@ exports.getDiseases = async (req, res) => {
       message: error.message
     });
   }
-};
+}
+
+
+  exports.editDisease = async (req, res) => {
+      
+  }
