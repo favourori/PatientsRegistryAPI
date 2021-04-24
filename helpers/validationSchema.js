@@ -27,8 +27,15 @@ const diseaseCreate = Joi.object().keys({
   causes: Joi.string().trim().min(2).label("causes")
     .required()
 });
+
+const patientLogin = Joi.object().keys({
+  email: Joi.string().trim().email({ minDomainSegments: 2 }).label("email")
+    .required(),
+  password: Joi.string().trim().label("password")
+    .required()
+});
 module.exports = {
   patientSignup,
-  diseaseCreate
-
+  diseaseCreate,
+  patientLogin
 };

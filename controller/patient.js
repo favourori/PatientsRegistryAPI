@@ -2,9 +2,10 @@
 const {
   InternalServerError,
   Forbidden,
-  NotFound
+  NotFound,
+  Unauthorized
 } = require("http-errors");
-const { accessToken } = require("../helpers/authHelper");
+const { accessToken, isPasswordValid } = require("../helpers/authHelper");
 const Patients = require("../model/patient");
 
 exports.signup = async (req, res) => {
@@ -76,6 +77,44 @@ exports.verifyAccount = async (req, res) => {
       data: {
         token
       }
+    });
+  } catch (error) {
+    return res.status(error.status || 400).send({
+      status: false,
+      message: error.message
+    });
+  }
+};
+
+exports.login = async (req, res) => {
+  try {
+    // get the payload from the body
+    const { email, password } = req.body;
+
+    // check for the user using the email
+    const patient = await Patients.findOne({ email });
+    if (!patient) {
+      throw new NotFound("Incorrect login details");
+    }
+
+    // check user password
+    const checkPassword = await isPasswordValid(patient.password, password);
+    patient.password = null;
+
+    if (!checkPassword) {
+      throw new Unauthorized("Incorrect login details, please check that the email and password are correct");
+    }
+
+    // create token for user
+    const token = await accessToken({ email: patient.email, id: patient._id });
+    return res.status(200).send({
+      status: true,
+      message: "Login was Succesfull",
+      data: {
+        patient,
+        token
+      }
+
     });
   } catch (error) {
     return res.status(error.status || 400).send({
