@@ -1,8 +1,10 @@
 /* eslint-disable no-underscore-dangle */
 const {
   InternalServerError,
-  NotFound
+  NotFound,
+  UnprocessableEntity
 } = require("http-errors");
+const mongoose = require("mongoose");
 const { accessToken } = require("../helpers/authHelper");
 const Disease = require("../model/disease");
 
@@ -38,6 +40,10 @@ exports.getDisease = async (req, res) => {
         success: false,
         message: "id is required"
       });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new UnprocessableEntity("invalid disease id");
     }
     const disease = await Disease.findOne({
       _id: id
