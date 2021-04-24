@@ -38,7 +38,7 @@ exports.signup = async (req, res) => {
 
     // return error if data did not save
     if (!PatientData) {
-      throw InternalServerError("Unable to save user's data");
+      throw new InternalServerError("Unable to save user's data");
     }
 
     // return successfull message and patient data
