@@ -7,11 +7,11 @@ const cors = require("cors");
 
 require("dotenv").config();
 
-//import patients routes
+// import patients routes
 const patientRoute = require("./route/patient");
 const userRoute = require("./route/users");
 
-//import disease routes
+// import disease routes
 const diseaseRoute = require("./route/disease");
 
 // setup body parser
@@ -53,11 +53,11 @@ app.get("/", (req, res) => {
   });
 });
 
-//Patients Routes
+// Patients Routes
 app.use("/api/v1/auth", userRoute);
 app.use("/api/v1/patients", patientRoute);
 
-//Disease Routes
+// Disease Routes
 app.use("/api/v1/diseases", diseaseRoute);
 
 // Spin up dev server
