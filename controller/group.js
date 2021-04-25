@@ -105,7 +105,7 @@ exports.joinGroup = async (req, res) => {
     }
 
     const joinTheGroup = await Group.findByIdAndUpdate(
-      id, { $addToSet: { patientId } }
+      id, { $addToSet: { members: patientId } }
     );
     if (!joinTheGroup) {
       throw new InternalServerError("An error occured while trying to join a group, please try again");
