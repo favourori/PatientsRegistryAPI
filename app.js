@@ -59,7 +59,7 @@ app.get("/", (req, res) => {
 });
 
 // Auth route
-app.use("/api/v1/auth", userRoute);
+app.use("/api/v1/users", userRoute);
 
 // Patients Routes
 app.use("/api/v1/patients", patientRoute);
