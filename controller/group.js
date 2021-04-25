@@ -95,6 +95,30 @@ exports.getGroups = async (req, res) => {
   }
 };
 
-//   exports.editDisease = async (req, res) => {
+exports.joinGroup = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const patientId = res.locals.user.id;
 
-//   };
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new UnprocessableEntity("invalid group id");
+    }
+
+    const joinTheGroup = await Group.findByIdAndUpdate(
+      id, { $addToSet: { patientId } }
+    );
+    if (!joinTheGroup) {
+      throw new InternalServerError("An error occured while trying to join a group, please try again");
+    }
+
+    return res.status(200).json({
+      status: true,
+      message: "patient successfully joined a group"
+    });
+  } catch (error) {
+    return res.status(error.status || 404).send({
+      status: false,
+      message: error.message
+    });
+  }
+};
