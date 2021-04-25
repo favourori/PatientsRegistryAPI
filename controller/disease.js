@@ -95,6 +95,6 @@ exports.getDiseases = async (req, res) => {
   }
 };
 
-exports.editDisease = async (req, res) => {
+// exports.editDisease = async (req, res) => {
 
-};
+// };
