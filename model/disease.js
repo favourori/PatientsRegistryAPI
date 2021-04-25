@@ -1,6 +1,8 @@
 /* eslint-disable func-names */
 /* eslint-disable consistent-return */
+const { InternalServerError } = require("http-errors");
 const mongoose = require("mongoose");
+const Group = require("./group");
 
 const diseaseSchema = new mongoose.Schema(
   {
@@ -29,6 +31,13 @@ const diseaseSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+diseaseSchema.post("save", async (result) => {
+  try {
+    await Group.create({ name: result.name });
+  } catch (error) {
+    throw InternalServerError("error creating group for disease");
+  }
+});
 const Disease = mongoose.model("Disease", diseaseSchema);
 
 module.exports = Disease;

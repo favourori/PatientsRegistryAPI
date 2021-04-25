@@ -11,10 +11,10 @@ require("dotenv").config();
 const patientRoute = require("./route/patient");
 const userRoute = require("./route/users");
 const adminRoute = require("./route/admin");
+const registryRoute = require("./route/registry");
 
 // import disease routes
 const diseaseRoute = require("./route/disease");
-
 
 // import group routes
 const groupRoute = require("./route/group");
@@ -58,8 +58,10 @@ app.get("/", (req, res) => {
   });
 });
 
+// Auth route
+app.use("/api/v1/users", userRoute);
+
 // Patients Routes
-app.use("/api/v1/auth", userRoute);
 app.use("/api/v1/patients", patientRoute);
 
 // Disease Routes
@@ -70,6 +72,9 @@ app.use("/api/v1/admins", adminRoute);
 
 // group route
 app.use("/api/v1/groups", groupRoute);
+
+// registry route
+app.use("/api/v1/registry", registryRoute);
 
 // Spin up dev server
 const PORT = process.env.PORT || 8080;

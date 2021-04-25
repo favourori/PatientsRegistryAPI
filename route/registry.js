@@ -1,8 +1,9 @@
 const express = require("express");
-const { userProfile } = require("../controller/userControllers");
+const { chooseDisease } = require("../controller/registry");
 const { mustBeLoggedIn } = require("../helpers/authHelper");
 
 const router = express.Router();
 
-router.get("/me", mustBeLoggedIn, userProfile);
+router.post("/choose", mustBeLoggedIn, chooseDisease);
+
 module.exports = router;
