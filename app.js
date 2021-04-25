@@ -10,6 +10,7 @@ require("dotenv").config();
 // import patients routes
 const patientRoute = require("./route/patient");
 const userRoute = require("./route/users");
+const adminRoute = require("./route/admin");
 
 // import disease routes
 const diseaseRoute = require("./route/disease");
@@ -59,6 +60,9 @@ app.use("/api/v1/patients", patientRoute);
 
 // Disease Routes
 app.use("/api/v1/diseases", diseaseRoute);
+
+// admin and researcher route
+app.use("/api/v1/admins", adminRoute);
 
 // Spin up dev server
 const PORT = process.env.PORT || 8080;
