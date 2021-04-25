@@ -2,7 +2,8 @@
 const {
   InternalServerError,
   NotFound,
-  UnprocessableEntity
+  UnprocessableEntity,
+  BadRequest
 } = require("http-errors");
 const mongoose = require("mongoose");
 const Group = require("../model/group");
@@ -114,6 +115,34 @@ exports.joinGroup = async (req, res) => {
     return res.status(200).json({
       status: true,
       message: "patient successfully joined a group"
+    });
+  } catch (error) {
+    return res.status(error.status || 404).send({
+      status: false,
+      message: error.message
+    });
+  }
+};
+
+exports.checkUserInGroup = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = res.locals.user.id;
+
+    if (!id) {
+      throw new BadRequest("group id is missing");
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new UnprocessableEntity("invalid group id");
+    }
+    const checkForUser = await Group.findOne({ _id: id, members: userId });
+    if (!checkForUser) {
+      throw new NotFound("User does not belong to the group chat");
+    }
+    return res.status(200).json({
+      status: true,
+      message: "user belongs to group"
     });
   } catch (error) {
     return res.status(error.status || 404).send({
