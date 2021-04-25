@@ -1,7 +1,7 @@
 const express = require("express");
-const { createGroup, getGroup, getGroups} = require("../controller/group");
+const { createGroup, getGroup, getGroups } = require("../controller/group");
 const { mustBeLoggedIn } = require("../helpers/authHelper");
-const { groupValidation} = require("../helpers/validationSchema");
+const { groupValidation } = require("../helpers/validationSchema");
 const { validator } = require("../middlewares/validationMid");
 
 const router = express.Router();
