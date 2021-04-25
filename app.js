@@ -15,6 +15,10 @@ const adminRoute = require("./route/admin");
 // import disease routes
 const diseaseRoute = require("./route/disease");
 
+
+// import group routes
+const groupRoute = require("./route/group");
+
 // setup body parser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -63,6 +67,9 @@ app.use("/api/v1/diseases", diseaseRoute);
 
 // admin and researcher route
 app.use("/api/v1/admins", adminRoute);
+
+// group route
+app.use("/api/v1/groups", groupRoute);
 
 // Spin up dev server
 const PORT = process.env.PORT || 8080;
