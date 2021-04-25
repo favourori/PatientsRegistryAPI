@@ -6,8 +6,8 @@ const { validator } = require("../middlewares/validationMid");
 
 const router = express.Router();
 
-router.post("/create",  validator(groupValidation), createGroup);
-router.get("/all",  getGroups);
-router.get("/:id",  getGroup);
+router.post("/create", mustBeLoggedIn, validator(groupValidation), createGroup);
+router.get("/all", mustBeLoggedIn, getGroups);
+router.get("/:id", mustBeLoggedIn, getGroup);
 
 module.exports = router;
