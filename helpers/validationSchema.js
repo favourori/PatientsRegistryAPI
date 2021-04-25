@@ -54,10 +54,17 @@ const adminLoginValidation = Joi.object().keys({
     .required()
 });
 
+
+const groupValidation = Joi.object().keys({
+  name: Joi.string().trim().min(2).label("name")
+  .required()
+});
+
 module.exports = {
   patientSignup,
   diseaseCreate,
   patientLogin,
   adminSignupValidation,
-  adminLoginValidation
+  adminLoginValidation,
+  groupValidation
 };
