@@ -12,7 +12,9 @@ const patientSignup = Joi.object().keys({
   country: Joi.string().trim().label("country").required(),
   email: Joi.string().trim().email({ minDomainSegments: 2 }).label("email")
     .required(),
-  password: Joi.string().trim().label("password").regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*;])(?=.{8,})/, "required password strength")
+  // password: Joi.string().trim().label("password").regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*;])(?=.{8,})/, "required password strength")
+  //   .required(),
+    password: Joi.string().trim().min(2).label("password")
     .required(),
   phone: Joi.string().trim().label("phone").required()
 });
