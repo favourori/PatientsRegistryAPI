@@ -19,21 +19,24 @@ disease & to connect with other patients in same category.
  ```
  npm install
  ```
- Install nodemon globally on your system to run with
- run with nodemon 
- ```
- npm run dev
- ```
- Run the node
- ```
- npm start
- ```
- - create an .env file
+ 
+ ## create an .env file
    From the root folder
    ```bash
    touch .env
    ```
    Check the env.example file to see what the boilerplate of the env
+   
+  Install nodemon globally on your system to run with
+ 
+  run with nodemon 
+  ```
+  npm run dev
+  ```
+  Run the node
+  ```
+  npm start
+  ```
  
 
-open http://localhost:{{port}} 
+run the application on  http://localhost:{{port}} 
