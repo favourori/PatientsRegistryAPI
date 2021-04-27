@@ -6,6 +6,7 @@ const {
 } = require("http-errors");
 const mongoose = require("mongoose");
 const Disease = require("../model/disease");
+const Registry = require("../model/registry");
 
 exports.createDisease = async (req, res) => {
   try {
@@ -95,6 +96,38 @@ exports.getDiseases = async (req, res) => {
   }
 };
 
-// exports.editDisease = async (req, res) => {
+exports.patients = async (req, res) => {
+  try {
+    const { diseaseId } = req.params;
+    if (!diseaseId) {
+      return res.status(400).json({
+        success: false,
+        message: "id is required"
+      });
+    }
 
-// };
+    if (!mongoose.Types.ObjectId.isValid(diseaseId)) {
+      throw new UnprocessableEntity("invalid disease id");
+    }
+
+    const patientsWithDisease = await Registry.find({ disease: diseaseId });
+    if (!patientsWithDisease || patientsWithDisease.length < 1) {
+      throw new NotFound("There is no pateint found for this disease");
+    }
+    const count = patientsWithDisease.length;
+    return res.status(200).send({
+      status: true,
+      message: "Successfully fetched data",
+      data: {
+        patients: patientsWithDisease.map((docs) => docs.patient),
+        count
+      }
+
+    });
+  } catch (error) {
+    return res.status(error.status || 404).send({
+      status: false,
+      message: error.message
+    });
+  }
+};
