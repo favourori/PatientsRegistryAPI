@@ -5,8 +5,12 @@ raise funds, understand the disease better, and attract researchers to work
 on the disease. This project enables a newly diagnosed patient to register themselves as a patient of the
 disease & to connect with other patients in same category.
 
+## Landing page
+Here's a link to the [landing page] (https://patientsregistry.netlify.app/)
+
 ## DOCUMENTATION
 Read the docs [here](https://documenter.getpostman.com/view/7357882/TzJx9GoU#32538d66-4e99-426a-ab95-7b75bd29d0eb)
+
 
 ## REQUIREMENTS
 
