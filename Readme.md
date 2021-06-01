@@ -1,4 +1,4 @@
-# Patients Registry API
+# Patients Registry API (Turing.com hackathon winner 2021)
 The first goal for any rare disease is to identify other patients around the world
 diagnosed with this disease. There is strength in numbers in their ability to
 raise funds, understand the disease better, and attract researchers to work
